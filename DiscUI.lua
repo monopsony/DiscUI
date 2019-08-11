@@ -39,7 +39,6 @@ tempF:SetScript("OnEvent",function()
     local playerName=UnitName("player")
     local nCheck=4 --means echecking 4 times across the duration of the cooldown (to account for haste changes, kinda)
                    --I know it's not clean but it still seems more efficient than any alternative
-                   
     function DUI.onCast1(self)
       local t,d=GetSpellCooldown(self.id)
       if d<1.5 then
@@ -220,7 +219,7 @@ tempF:SetScript("OnEvent",function()
       iF.normal.et=0
       return iF
     end
-
+    
     local function checkTalentStuff()
       local _,_,_,sch = GetTalentInfo(1,3,1)
       local _,_,_,sol = GetTalentInfo(3,3,1)
@@ -238,6 +237,8 @@ tempF:SetScript("OnEvent",function()
       if lb then DUI.lb:Show(); DUI.lb:onCast(); DUI.pwb:Hide(); else DUI.pwb:Show(); DUI.pwb:onCast(); DUI.lb:Hide(); end
 
     end
+    
+    _duiGlobal.checkLoad=checkTalentStuff
 
     local function checkCombat()
         if true then return  end
@@ -616,7 +617,10 @@ tempF:SetScript("OnEvent",function()
             afterDo(0,function() DUI.f:SetPoint("TOPRIGHT",_eFGlobal.units,"TOPLEFT",-2,0) end) 
         elseif elFramoGlobal then --eF2
             afterDo(0,function() DUI.f:SetPoint("TOPRIGHT",UIParent,"BOTTOMLEFT",elFramoGlobal.para.units.xPos-2,elFramoGlobal.para.units.yPos) end) 
+        elseif elFramo then --eF3
+            afterDo(0,function() DUI.f:ClearAllPoints(); DUI.f:SetPoint("LEFT",UIParent,"CENTER",140,-80) end)
         end
+        
     end    
     
     --NON DISC UI RELATED THINGS
